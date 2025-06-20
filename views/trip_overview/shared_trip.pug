@@ -1,0 +1,68 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Shared Trip - #{trip.name}
+    link(rel="stylesheet", href="/styles/style.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css")
+  
+  body
+    include ../header.pug
+    
+    main.container.shared-trip-container
+      h1 Shared Trip
+      
+      if trip.type === 'hotel'
+        .hotel-card.shared-trip-card
+          img.hotel-image(
+            src=trip.thumbnail || trip.hotelThumbnail || 'https://placehold.co/600x400?text=Hotel' 
+            alt=trip.name || trip.hotelName
+          )
+          .hotel-details
+            h2.hotel-name= trip.name || trip.hotelName
+            .hotel-rating
+              - let stars = Math.floor(trip.rating)
+              - let remaining = trip.rating - stars
+              - for (let i = 0; i < stars; i++)
+                span ★
+              if remaining >= 0.5
+                span ★
+              - let emptyStars = 5 - Math.ceil(trip.rating)
+              - for (let i = 0; i < emptyStars; i++)
+                span ☆
+              span  #{trip.rating.toFixed(1)}
+            
+            p.hotel-address= trip.address || 'Address not available'
+            p.hotel-price Price: $#{trip.pricePerNight.toFixed(2)} per night
+            .hotel-amenities
+              each amenity in (trip.amenities || []).slice(0, 4)
+                span.amenity-tag= amenity
+            
+            if trip.expediaBookingLink
+              button.book-button(onclick=`window.open('${trip.expediaBookingLink}', '_blank')`) Book Now
+      
+      else if trip.type === 'flight'
+        .flight-card.shared-trip-card
+          .card-header
+            h2 #{trip.airline} - Flight #{trip.flightNumber}
+          .card-body
+            .row
+              .col
+                h3 Departure
+                p.airport #{trip.departureAirport} (#{trip.origin.toUpperCase()})
+                p.time #{trip.departureTime}
+              .col
+                h3 Arrival
+                p.airport #{trip.arrivalAirport} (#{trip.destination.toUpperCase()})
+                p.time #{trip.arrivalTime}
+              .col
+                h3 Details
+                p.duration Duration: #{trip.duration}
+                p.status Status: #{trip.status}
+                p.price Price: $#{trip.pricePerNight.toFixed(2)}
+            
+            .flight-actions
+              button.book-button(onclick=`window.open('${trip.bookingLink}', '_blank')`) Book Now
+    
+    include ../footer.pug

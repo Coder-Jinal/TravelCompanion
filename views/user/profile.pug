@@ -1,0 +1,104 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Profile - Travel Companion
+    link(rel="stylesheet", href="/styles/style.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css")
+  body
+    include ../header.pug
+    
+    main.container
+      h1 Profile
+      if success
+        .alert.alert-success= success
+      if error
+        .alert.alert-danger= error
+      
+      form(method="POST" action="/user/profile")
+        .form-group
+          label(for="username") Username
+          input.form-control(
+            type="text" 
+            name="username" 
+            id="username" 
+            value=user.username 
+            required 
+            minlength="3" 
+            maxlength="30"
+          )
+        .form-group
+          label(for="email") Email
+          input.form-control(
+            type="email" 
+            name="email" 
+            id="email" 
+            value=user.email 
+            required
+          )
+        .form-group
+          label(for="password") New Password (leave blank to keep current)
+          input.form-control(
+            type="password" 
+            name="password" 
+            id="password" 
+            minlength="8"
+            placeholder="Enter new password (if changing)"
+          )
+        
+        // Security Question Section
+        .security-question-section
+          h3 Security Settings
+          .form-group
+            label(for="securityQuestion") Security Question
+            select.form-control(
+              name="securityQuestion" 
+              id="securityQuestion"
+              required
+            )
+              - const hasSecurityQuestion = user.securityQuestion && user.securityQuestion.question
+              option(value="" selected=!hasSecurityQuestion) -- Select a question --
+              option(
+                value="What was your first pet's name?"
+                selected=hasSecurityQuestion && user.securityQuestion.question === "What was your first pet's name?"
+              ) What was your first pet's name?
+              option(
+                value="What city were you born in?"
+                selected=hasSecurityQuestion && user.securityQuestion.question === "What city were you born in?"
+              ) What city were you born in?
+              option(
+                value="What was your mother's maiden name?"
+                selected=hasSecurityQuestion && user.securityQuestion.question === "What was your mother's maiden name?"
+              ) What was your mother's maiden name?
+              option(
+                value="What was the name of your first school?"
+                selected=hasSecurityQuestion && user.securityQuestion.question === "What was the name of your first school?"
+              ) What was the name of your first school?
+              option(
+                value="What was your childhood nickname?"
+                selected=hasSecurityQuestion && user.securityQuestion.question === "What was your childhood nickname?"
+              ) What was your childhood nickname?
+          
+          .form-group
+            label(for="securityAnswer") Security Answer
+            input.form-control(
+              type="text" 
+              name="securityAnswer" 
+              id="securityAnswer" 
+              value=(user.securityQuestion ? user.securityQuestion.answer : '')
+              required
+              minlength="2"
+              placeholder="Your answer to the security question"
+            )
+        
+        button.btn.btn-primary(type="submit") Update Profile
+      
+      hr.profile
+      h3.mt-4.profileTitle Danger Zone
+      p.mt-3.AccountDelete Delete Your Account Here.
+      form(method="POST" action="/user/delete")
+        button.btn.btn-danger.deleteBtn(type="submit" onclick="return confirm('Are you sure you want to delete your account? This cannot be undone.')") Delete Account
+    
+    include ../footer.pug

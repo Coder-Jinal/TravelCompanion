@@ -1,0 +1,78 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title= title
+    link(rel="stylesheet", href="/styles/style.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  body
+    include ../header.pug
+    
+    main.container
+      h1 Find Accommodations
+      
+      if error
+        .alert.alert-error
+          p= error
+      
+      form.search-form(action="/hotel/search", method="POST")
+        .form-group
+          label(for="city") Destination
+          input#city(type="text", name="city", placeholder="Enter city name", required)
+        
+        .row
+          .col
+            .form-group
+              label(for="checkIn") Check-in Date
+              input#checkIn(type="date", name="checkIn", required)
+          
+          .col
+            .form-group
+              label(for="checkOut") Check-out Date
+              input#checkOut(type="date", name="checkOut", required)
+        
+        .form-group
+          label(for="guests") Number of Guests
+          select#guests(name="guests", required)
+            option(value="") Select number of guests
+            - for (let i = 1; i <= 10; i++)
+              option(value=i)= i + (i === 1 ? ' guest' : ' guests')
+        
+        .form-group
+          button(type="submit") Search Accommodations
+      
+      .popular-destinations
+        h3 Popular Destinations
+        .row
+          .col
+            .card
+              .card-body
+                h4 New York
+                p Experience the vibrant culture and iconic landmarks of the Big Apple.
+                button(onclick="document.getElementById('city').value='New York'") Select
+          
+          .col
+            .card
+              .card-body
+                h4 Paris
+                p Discover the romantic charm and artistic heritage of the City of Light.
+                button(onclick="document.getElementById('city').value='Paris'") Select
+          
+          .col
+            .card
+              .card-body
+                h4 Tokyo
+                p Explore the fascinating blend of tradition and innovation in Japan's capital.
+                button(onclick="document.getElementById('city').value='Tokyo'") Select
+          
+          .col
+            .card
+              .card-body
+                h4 London
+                p Immerse yourself in the rich history and diverse culture of England's capital.
+                button(onclick="document.getElementById('city').value='London'") Select
+
+    include ../footer.pug
+    

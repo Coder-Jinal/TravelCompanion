@@ -1,0 +1,100 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title= title
+    link(rel="stylesheet", href="/styles/style.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  body
+    include ../header.pug
+    
+    main.container
+      h1 Destination Gallery
+      
+      if error
+        .alert.alert-error
+          p= error
+      
+      form.search-form(action="/images/search", method="GET")
+        .form-group
+          label(for="destination") Destination
+          input#destination(type="text", name="destination", placeholder="Enter a destination", value=destination)
+        
+        .form-group
+          button(type="submit") Search Images
+      
+      if images && images.length
+        .destination-heading
+          h2 Images of #{destination}
+          p Showing #{images.length} results
+        
+        .image-gallery
+          each image in images
+            .gallery-item(data-id=image.id, data-large=image.largeUrl, data-tags=image.tags, data-photographer=image.photographer)
+              img(src=image.url, alt=image.tags, loading="lazy")
+      else if destination
+        p.no-results No images found for "#{destination}". Please try a different destination.
+      
+      // Lightbox
+      .lightbox#lightbox
+        .lightbox-close#lightbox-close &times;
+        .lightbox-content
+          img#lightbox-image(src="", alt="")
+          .lightbox-info
+            p#lightbox-tags
+            p#lightbox-photographer
+    
+    include ../footer.pug
+    
+    script.
+      // Lightbox functionality
+      document.addEventListener('DOMContentLoaded', function() {
+        const galleryItems = document.querySelectorAll('.gallery-item');
+        const lightbox = document.getElementById('lightbox');
+        const lightboxClose = document.getElementById('lightbox-close');
+        const lightboxImage = document.getElementById('lightbox-image');
+        const lightboxTags = document.getElementById('lightbox-tags');
+        const lightboxPhotographer = document.getElementById('lightbox-photographer');
+        
+        // Function to prevent scrolling on the main document
+        function toggleScrolling(isOpen) {
+          if (isOpen) {
+            document.body.classList.add('no-scroll');
+          } else {
+            document.body.classList.remove('no-scroll');
+          }
+        }
+        
+        galleryItems.forEach(item => {
+          item.addEventListener('click', function() {
+            lightboxImage.src = this.getAttribute('data-large');
+            lightboxImage.alt = this.getAttribute('data-tags');
+            lightboxTags.textContent = `Tags: ${this.getAttribute('data-tags')}`;
+            lightboxPhotographer.textContent = `Photographer: ${this.getAttribute('data-photographer')}`;
+            lightbox.style.display = 'flex';
+            toggleScrolling(true); // Prevent body scrolling
+          });
+        });
+        
+        lightboxClose.addEventListener('click', function() {
+          lightbox.style.display = 'none';
+          toggleScrolling(false); // Re-enable body scrolling
+        });
+        
+        lightbox.addEventListener('click', function(e) {
+          if (e.target === lightbox) {
+            lightbox.style.display = 'none';
+            toggleScrolling(false); // Re-enable body scrolling
+          }
+        });
+        
+        // Handle keyboard events for accessibility
+        document.addEventListener('keydown', function(e) {
+          if (e.key === 'Escape' && lightbox.style.display === 'flex') {
+            lightbox.style.display = 'none';
+            toggleScrolling(false); // Re-enable body scrolling
+          }
+        });
+      });

@@ -1,0 +1,119 @@
+//- doctype html
+//- html(lang="en")
+//-   head
+//-     meta(charset="UTF-8")
+//-     meta(name="viewport", content="width=device-width, initial-scale=1.0")
+//-     title Contact Us - Travel Companion
+//-     link(rel="stylesheet", href="/styles/style.css")
+//-     link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css")
+//-   body
+//-     include ../header.pug
+    
+//-     main.contact-container
+//-       h1.contact-heading Contact Us
+//-       p.contact-subheading Have questions or feedback? We'd love to hear from you!
+
+//-     .contact-content
+//-     .left-column
+//-         .contact-info
+//-         h2 Get in Touch
+//-         p 
+//-             i.fas.fa-envelope
+//-             | heyrosie.9453@gmail.com
+//-         p 
+//-             i.fas.fa-phone
+//-             | +1 (123) 456-7890
+//-         p 
+//-             i.fas.fa-map-marker-alt
+//-             | 123 Travel Street, Wanderlust City
+
+//-         .contact-social-container 
+//-         h2.contact-social-heading Connect With Us  
+//-         .contact-social-icons  
+//-             a.contact-social-icon(href="https://www.instagram.com", target="_blank", aria-label="Instagram")
+//-             i.fab.fa-instagram
+//-             a.contact-social-icon(href="https://www.linkedin.com/in/jinalpatel1812/", target="_blank", aria-label="LinkedIn")
+//-             i.fab.fa-linkedin
+//-             a.contact-social-icon(href="https://github.com/Coder-Jinal", target="_blank", aria-label="GitHub")
+//-             i.fab.fa-github
+//-             a.contact-social-icon(href="mailto:heyrosie.9453@gmail.com", aria-label="Email")
+//-             i.fas.fa-envelope
+
+//-         .contact-form
+//-           h2 Send Us a Message
+//-           form(action="/submit-contact", method="POST")
+//-             .form-group
+//-               label(for="name") Name
+//-               input(type="text", id="name", name="name", placeholder="Your Name", required)
+//-             .form-group
+//-               label(for="email") Email
+//-               input(type="email", id="email", name="email", placeholder="Your Email", required)
+//-             .form-group
+//-               label(for="subject") Subject
+//-               input(type="text", id="subject", name="subject", placeholder="Subject")
+//-             .form-group
+//-               label(for="message") Message
+//-               textarea(id="message", name="message", rows="5", placeholder="Your Message", required)
+//-             button(type="submit") Send Message
+
+//-     include ../footer.pug
+
+
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Contact Us - Travel Companion
+    link(rel="stylesheet", href="/styles/style.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css")
+  body
+    include ../header.pug
+    
+    main.contact-container
+      h1.contact-heading Contact Us
+      p.contact-subheading Have questions or feedback? We'd love to hear from you!
+
+      .contact-content
+        .contact-info
+          h2 Get in Touch
+          p 
+            i.fas.fa-envelope
+            | heyrosie.9453@gmail.com
+          p 
+            i.fas.fa-phone
+            | +1 (123) 456-7890
+          p 
+            i.fas.fa-map-marker-alt
+            | 123 Travel Street, Wanderlust City
+
+          .contact-social-container
+            h2.contact-social-heading Connect With Us
+            .contact-social-icons
+              a.contact-social-icon(href="https://www.instagram.com", target="_blank", aria-label="Instagram")
+                i.fab.fa-instagram
+              a.contact-social-icon(href="https://www.linkedin.com/in/jinalpatel1812/", target="_blank", aria-label="LinkedIn")
+                i.fab.fa-linkedin
+              a.contact-social-icon(href="https://github.com/Coder-Jinal", target="_blank", aria-label="GitHub")
+                i.fab.fa-github
+              a.contact-social-icon(href="mailto:heyrosie.9453@gmail.com", aria-label="Email")
+                i.fas.fa-envelope
+
+        .contact-form
+          h2 Send Us a Message
+          form(action="/submit-contact", method="POST")
+            .form-group
+              label(for="name") Name
+              input(type="text", id="name", name="name", placeholder="Your Name", required)
+            .form-group
+              label(for="email") Email
+              input(type="email", id="email", name="email", placeholder="Your Email", required)
+            .form-group
+              label(for="subject") Subject
+              input(type="text", id="subject", name="subject", placeholder="Subject")
+            .form-group
+              label(for="message") Message
+              textarea(id="message", name="message", rows="5", placeholder="Your Message", required)
+            button(type="submit") Send Message
+
+    include ../footer.pug

@@ -1,0 +1,48 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Register - Travel Companion
+    link(rel="stylesheet", href="/styles/style.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  body
+    include ../header.pug
+    
+    main.container
+      h1 Register
+      if error
+        .alert.alert-danger= error
+      form(method="POST" action="/user/register")
+        .form-group
+          label(for="username") Username
+          input.form-control(type="text" name="username" id="username" required minlength="3" maxlength="30")
+        .form-group
+          label(for="email") Email
+          input.form-control(type="email" name="email" id="email" required)
+        .form-group
+          label(for="password") Password
+          input.form-control(type="password" name="password" id="password" required minlength="8")
+        .form-group
+          label(for="securityQuestion.question") Security Question
+          select.form-control(name="securityQuestion.question" required)
+            option(value="") -- Select a question --
+            option(value="What was your first pet's name?") What was your first pet's name?
+            option(value="What city were you born in?") What city were you born in?
+            option(value="What was your mother's maiden name?") What was your mother's maiden name?
+            option(value="What was the name of your first school?") What was the name of your first school?
+            option(value="What was your childhood nickname?") What was your childhood nickname?
+        .form-group
+          label(for="securityQuestion.answer") Answer
+          input.form-control(
+            type="text" 
+            name="securityQuestion.answer" 
+            required
+            minlength="2"
+          )
+        button.btn.btn-primary(type="submit") Register
+      p.mt-3.login-link Already have an account? 
+        a(href="/user/login") Login here
+    
+    include ../footer.pug

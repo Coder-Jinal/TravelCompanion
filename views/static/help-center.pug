@@ -1,0 +1,39 @@
+doctype html
+html(lang="en")
+  head
+    meta(charset="UTF-8")
+    meta(name="viewport", content="width=device-width, initial-scale=1.0")
+    title Login - Travel Companion
+    link(rel="stylesheet", href="/styles/style.css")
+    link(rel="stylesheet", href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css")
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+  body
+    include ../header.pug
+
+    main.container.help-centre-container
+        h1.help-centre-heading Help Center
+        section.help-section
+            h2 Getting Started
+            p If you're new to Travel Explorer, here's how to get started:
+            ul
+                li Create an account or login
+                li Search for flights, hotels, and destinations
+                li Get the weather of destinations
+                li Save your trip plans
+      
+        section.help-section
+            h2 Common Issues
+            .issue
+                h3 Can't login to my account
+                p Try resetting your password or contact support if the issue persists.
+      
+            .issue
+                h3 Flight search not working
+                p Check your internet connection and try again. Make sure you've entered valid dates.
+
+        section.help-section
+            h2 Still need help?
+            p Contact our support team at 
+                a(href="mailto:jvpatel1812@gmail.com") support@travelexplorer.com
+
+    include ../footer.pug

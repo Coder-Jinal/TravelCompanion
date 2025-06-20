@@ -1,0 +1,33 @@
+header
+  .header-container.container
+    .logo Travel Explorer
+    nav
+      ul
+        li
+          a(href="/") Home
+        li
+          a(href="/flight") Flights
+        li
+          a(href="/weather") Weather
+        li
+          a(href="/hotel") Accommodations
+        li
+          a(href="/images") Destinations
+        li
+          a(href="/trip-overview") Trip Overview
+
+        if user
+          li
+            a(href="/user/profile") Profile
+          li
+            a(href="/user/logout") Logout
+        else
+          li
+            a(href="/user/login") Login
+          li
+            a(href="/user/register") Register
+
+
+
+
+
